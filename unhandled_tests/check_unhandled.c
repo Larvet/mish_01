@@ -40,7 +40,7 @@ static int	not_between_quotes(t_mish *mish, char *line, int i)
 		//		errno, "between_quotes"));
 }
 
-int	check_unhandled(t_mish *mish)
+int	mish_check_unhandled(t_mish *mish)
 {
 	char	*err;
 	int		i;

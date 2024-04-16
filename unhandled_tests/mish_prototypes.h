@@ -72,6 +72,13 @@ int			is_bad_fd(t_mish *mish, int i);
 /* print_error.c */
 void		print_error(t_mish *mish);
 
+/* ft_split.c */
+int			ft_splitsize(char **split);
+void		*ft_freesplit(char **split);
+// char	**splitit(char *s, char c, char **split, int nb);
+int			ft_getnbsplit(char *s, char c);
+char		**ft_split(char const *src, char c);
+
 /* ft_strdup.c */
 // size_t	ft_strlen(const char *str);
 // char		*ft_strcpy(char *dst, const char *src);
@@ -79,13 +86,18 @@ char		*ft_strdup(const char *s);
 // char		*ft_strncpy(char *dst, const char *src, size_t n);
 char		*ft_strndup(const char *s, size_t n);
 
-/* check_unhandled.c */
+/* mish_check_unhandled.c */
 // int		not_between_quotes(t_mish *mish, char *line, int i);
-int			check_unhandled(t_mish *mish);
+int			mish_check_unhandled(t_mish *mish);
 
 /* mish_check_syntax_error.c */
 // int		is_special_token(char *line, int i);
 int			mish_check_syntax_error(t_mish *mish);
+
+/* mish_separate_processes.c */
+int			char_count(char *str, char c);
+void		process_init_line(t_process **p, char **split, int count);
+int			mish_separate_processes(t_mish *mish);
 
 /* mish_91_ft_00.c */
 char		*ft_strnrchr(char *str, int n, char c);

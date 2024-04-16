@@ -33,6 +33,19 @@ static int	is_special_token(char *line, int i)
 		return (0);
 }
 
+static char	*next_char_addr(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && is_in_str(WHITESPACES, str[i]))
+		i++;
+	if (str[i])
+		return (&str[i]);
+	else
+		return (NULL);
+}
+
 int	mish_check_syntax_error(t_mish *mish)
 {
 	char	*err;
@@ -56,7 +69,7 @@ int	mish_check_syntax_error(t_mish *mish)
 				free(err);
 				return (result);
 			}
-			else if (!mish->line[i])
+			else if (!next_char_addr(&mish->line[i]))
 			{
 				err = ft_strndup("newline",7); // malloc
 				result = mish_t_error_add(mish, err_token_unexpected,
