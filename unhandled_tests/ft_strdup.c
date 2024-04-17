@@ -6,7 +6,7 @@
 /*   By: bchene <bchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:30:55 by bchene            #+#    #+#             */
-/*   Updated: 2024/04/16 19:34:41 by locharve         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:01:16 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 		i++;
 	return (i);
 }
@@ -28,12 +28,12 @@ static char	*ft_strcpy(char *dst, const char *src)
 	size_t	i;
 
 	i = 0;
-	while (src[i])
+	while (src && src[i])
 	{
 		dst[i] = src[i];
 		i++;
 	}
-	dst[i] = src[i];
+	dst[i] = '\0';
 	return (dst);
 }
 
@@ -52,7 +52,7 @@ static char	*ft_strncpy(char *dst, const char *src, size_t n)
 	size_t	i;
 
 	i = 0;
-	while (src[i] && i < n)
+	while (src && src[i] && i < n)
 	{
 		dst[i] = src[i];
 		i++;

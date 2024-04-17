@@ -6,7 +6,7 @@
 /*   By: bchene <bchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 17:26:53 by bchene            #+#    #+#             */
-/*   Updated: 2024/04/16 17:48:57 by locharve         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:30:15 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	t_error_add(t_error **lst, t_error *new)
 {
 	if (lst)
 	{
-		if (*lst)
-			t_error_add(&(*lst)->next, new);
-		else
+		if (!(*lst))
 			*lst = new;
+		else
+			t_error_add(&(*lst)->next, new);
 	}
 	return ;
 }

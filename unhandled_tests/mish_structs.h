@@ -6,7 +6,7 @@
 /*   By: bchene <bchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 15:12:03 by bchene            #+#    #+#             */
-/*   Updated: 2024/04/12 16:10:55 by bchene           ###   ########.fr       */
+/*   Updated: 2024/04/17 18:14:04 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_process
 typedef struct s_file
 {
 	int				fd;
+	char			*line;
 	char			*path;
 	t_tfile_type	type;
 	t_file			*next;

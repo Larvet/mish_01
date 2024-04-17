@@ -6,7 +6,7 @@
 /*   By: bchene <bchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:58:13 by bchene            #+#    #+#             */
-/*   Updated: 2024/04/16 19:35:21 by locharve         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:37:33 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ int			mish_parse_path(t_mish *mish);
 /* mish_02_free */
 void		t_mish_free(t_mish *mish);
 void		t_file_free(t_file *tf);
+void		t_error_free(t_error *err);
+void		t_error_lst_free(t_error **err);
+void		strtab_free(char **strtab);
 
 /* mish_04_t_error.c */
 t_err_type	mish_t_error_add(t_mish *mish, t_err_type, int en, char *d);
@@ -40,22 +43,22 @@ void		t_process_printf(t_process *p);
 // 			char	 *ft_strcat_va(char *dst, va_list param);
 char		*ft_strjoin_va(char *str, ...);
 
-/* ft_split_mish.c */
-// int  	count_words(t_mish *mish, char *sep);
-// char 	*str_piece_cpy(char *str, int start, int end);
+/* mish_split.c */
+// int  	count_words(char *str, char *sep);
+// char 	*substr_dup(char *str, int start, int end);
 // char 	*from_str_to_strs(char *str, int *i, char *sep);
 void		free_strtab(char **strtab);
-char		**ft_split_mish(t_mish *mish, char *sep);
+char		**mish_split(t_mish *mish, char *sep);
 
 /* handle_word.c */
-int			handle_quotes(t_mish *mish, int *i, char q);
-int			handle_redirections(t_mish *mish, int *i, char r);
-int			handle_specials(t_mish *mish, int *i);
-int			handle_digits(t_mish *mish, int *i);
-int			handle_word(t_mish *mish, char *sep, int *i);
+int			handle_quotes(char *str, int i, char q);
+int			handle_redirections(char *str, int i, char r);
+int			handle_specials(char *str, int i);
+int			handle_digits(char *str, int i);
+int			handle_word(char *str, char *sep, int i);
 
 /* handle_pipe.c */
-int			handle_pipe(t_mish *mish, int *i);
+int			handle_pipe(t_mish *mish, int *i); // obsolete
 
 /* ft_atoll.c */
 long long	ft_atoll(char *str);
@@ -92,12 +95,23 @@ int			mish_check_unhandled(t_mish *mish);
 
 /* mish_check_syntax_error.c */
 // int		is_special_token(char *line, int i);
+// char		*next_char_addr(char *str);
+// int		dup_err_str(t_mish *mish, char *src, int n, t_err_type_err);
 int			mish_check_syntax_error(t_mish *mish);
+int			mish_check_open_quotes(t_mish *mish);
 
 /* mish_separate_processes.c */
 int			char_count(char *str, char c);
 void		process_init_line(t_process **p, char **split, int count);
 int			mish_separate_processes(t_mish *mish);
+
+/* mish_fill_processes.c */				// trop de fonctions ; gerer les retours d'erreur
+void		file_add_back(t_file **lst, t_file *new);
+// char		**strtab_get_io_files(char **split);
+// void		process_fill_io_files(t_process *p, char **split);
+// void		process_fill_av(t_process *p, char **split);
+// int		process_fill(t_process *p);
+int			mish_fill_processes(t_mish *mish);
 
 /* mish_91_ft_00.c */
 char		*ft_strnrchr(char *str, int n, char c);

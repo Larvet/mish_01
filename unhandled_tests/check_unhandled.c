@@ -6,7 +6,7 @@
 /*   By: locharve <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:13:05 by locharve          #+#    #+#             */
-/*   Updated: 2024/04/16 19:27:29 by locharve         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:06:51 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ static int	not_between_quotes(t_mish *mish, char *line, int i)
 	}
 	else
 		return (1);
-		//return (mish_t_error_add(mish, err_unhandled,
-		//		errno, "between_quotes"));
 }
 
 int	mish_check_unhandled(t_mish *mish)

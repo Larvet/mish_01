@@ -6,7 +6,7 @@
 /*   By: locharve <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:39:36 by locharve          #+#    #+#             */
-/*   Updated: 2024/04/16 19:29:52 by locharve         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:06:38 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,21 @@ static char	*next_char_addr(char *str)
 		return (NULL);
 }
 
+static int	dup_err_str(t_mish *mish, char *src, int n, t_err_type err)
+{
+	char	*dst;
+	int		result;
+
+	dst = ft_strndup(src, n);
+	result = mish_t_error_add(mish, err, errno, dst);
+	free(dst);
+	return (result);
+}
+
 int	mish_check_syntax_error(t_mish *mish)
 {
-	char	*err;
 	int		i;
 	int		tmp[2];
-	int		result;
 
 	i = 0;
 	while (mish->line && mish->line[i])
@@ -62,25 +71,42 @@ int	mish_check_syntax_error(t_mish *mish)
 			i += tmp[0];
 			tmp[1] = is_special_token(mish->line, i);
 			if (tmp[1])
-			{
-				err = ft_strndup(&mish->line[i], tmp[1]); // malloc
-				result = mish_t_error_add(mish, err_token_unexpected,
-						errno, err);
-				free(err);
-				return (result);
-			}
+				return (dup_err_str(mish, &mish->line[i],
+						tmp[1], err_token_unexpected));
 			else if (!next_char_addr(&mish->line[i]))
-			{
-				err = ft_strndup("newline",7); // malloc
-				result = mish_t_error_add(mish, err_token_unexpected,
-						errno, err);
-				free(err);
-				return (result);
-			}
+				return (dup_err_str(mish, "newline", 7, err_token_unexpected));
 			tmp[0] = 0;
 		}
 		else
 			i++;
+	}
+	return (0);
+}
+
+int	mish_check_open_quotes(t_mish *mish)
+{
+	int		i;
+	char	q;
+
+	i = 0;
+	q = 0;
+	while (mish->line && mish->line[i])
+	{
+		if (mish->line[i] == '\'' || mish->line[i] == '\"')
+		{
+			q = mish->line[i];
+			i++;
+			while (mish->line[i] && mish->line[i] != q)
+				i++;
+			if (!mish->line[i])
+			{
+				if (q == '\'')
+					return (dup_err_str(mish, "", 0, err_quote_open));
+				else if (q == '\"')
+					return (dup_err_str(mish, "", 0, err_dquote_open));
+			}
+		}
+		i++;
 	}
 	return (0);
 }

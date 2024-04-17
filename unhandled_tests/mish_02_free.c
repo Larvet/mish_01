@@ -6,16 +6,16 @@
 /*   By: bchene <bchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:34:27 by bchene            #+#    #+#             */
-/*   Updated: 2024/04/17 15:19:05 by locharve         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:38:55 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mish.h"
-
+/*
 void	t_mish_free(t_mish *mish)
 {
-	if (mish->error.data)
-		free(mish->error.data);
+	if (mish->error->data)
+		free(mish->error->data);
 	if (mish->prompt)
 		free(mish->prompt);
 	if (mish->line)
@@ -45,29 +45,34 @@ void	t_file_free(t_file *tf)
 	if (tf->here_doc)
 		free(tf->here_doc);
 }
+*/
 
 void	t_error_free(t_error *err)
 {
 	if (err)
 	{
 		if (err->data)
+		{
 			free(err->data);
+		}
 		free(err);
 	}
 }
 
-void	t_error_lst_free(t_error *err)
+void	t_error_lst_free(t_error **err)
 {
 	if (err)
 	{
-		if (err->next)
-			t_error_lst_free(err->next);
-		t_error_free(err);
+		if (*err)
+		{
+			if ((*err)->next)
+				t_error_lst_free(&(*err)->next);
+			t_error_free(*err);
+		}
 	}
 }
 
-/*
-void	free_strtab(char **strtab)
+void	strtab_free(char **strtab)
 {
 	int	i;
 
@@ -83,4 +88,3 @@ void	free_strtab(char **strtab)
 	}
 	return ;
 }
-*/
