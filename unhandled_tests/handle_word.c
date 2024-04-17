@@ -17,7 +17,7 @@ int	handle_quotes(char *str, int i, char q)
 	int	j;
 
 	j = 1;
-	while (str[i + j] && str[i] != q)
+	while (str[i + j] && str[i + j] != q)
 		j++;
 	return (j + 1);
 }
@@ -57,7 +57,7 @@ int	handle_word(char *str, char *sep, int i)
 	int	j;
 
 	j = 0;
-	if (is_in_str(SPECIAL_SEP, str[i]))
+	if (is_in_str(SPECIAL_SEP, str[i]) || is_in_str("\'\"", str[i]))
 		j = handle_specials(str, i);
 	else
 		while (str[i + j] && !is_in_str(sep, str[i + j])

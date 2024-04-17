@@ -28,6 +28,7 @@ static char	**strtab_get_io_files(char **split)
 	char	**io_files;
 	int		count;
 	int		i;
+	int		j;
 
 	count = 0;
 	i = -1;
@@ -38,9 +39,13 @@ static char	**strtab_get_io_files(char **split)
 	if (io_files)
 	{
 		i = -1;
+		j = 0;
 		while (split[++i])
 			if (is_in_str("<>", split[i][0]))
-				io_files[i] = split[i];
+			{
+				io_files[j] = split[i];
+				j++;
+			}
 	}
 	return (io_files);
 }
@@ -59,9 +64,9 @@ static void	process_fill_io_files(t_process *p, char **split)
 		if (tmp)
 		{
 			tmp->line = split[i];
-			if (tmp->line[i] == '<')
+			if (tmp->line[0] == '<')
 				file_add_back(&p->infiles, tmp);
-			else if (tmp->line[i] == '>')
+			else if (tmp->line[0] == '>')
 				file_add_back(&p->outfiles, tmp);
 		}
 		i++;
@@ -73,6 +78,7 @@ static void	process_fill_av(t_process *p, char **split)
 	char	**av;
 	int		count;
 	int		i;
+	int		j;
 
 	count = 0;
 	i = -1;
@@ -83,9 +89,13 @@ static void	process_fill_av(t_process *p, char **split)
 	if (av)
 	{
 		i = -1;
+		j = 0;
 		while (split[++i])
 			if (!is_in_str("<>", split[i][0]))
-				av[i] = split[i];
+			{
+				av[j] = split[i];
+				j++;
+			}
 		p->av = av;
 		p->ac = count;
 	}
@@ -96,7 +106,8 @@ static int	process_fill(t_mish *mish, t_process *p)
 	char	**split;
 	char	**io_files;
 
-	split = mish_split(mish, WHITESPACES);
+	(void) mish;
+	split = mish_split(p, WHITESPACES);
 	if (split)
 	{
 		io_files = strtab_get_io_files(split);

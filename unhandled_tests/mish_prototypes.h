@@ -48,7 +48,7 @@ char		*ft_strjoin_va(char *str, ...);
 // char 	*substr_dup(char *str, int start, int end);
 // char 	*from_str_to_strs(char *str, int *i, char *sep);
 void		free_strtab(char **strtab);
-char		**mish_split(t_mish *mish, char *sep);
+char		**mish_split(t_process *mish, char *sep);
 
 /* handle_word.c */
 int			handle_quotes(char *str, int i, char q);

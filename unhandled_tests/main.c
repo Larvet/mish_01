@@ -36,7 +36,7 @@ void	print_files(t_file *lst)
 {
 	if (lst)
 	{
-		printf("%s\n", lst->line);
+		printf("line = %s\n", lst->line);
 		free(lst->line); ////////
 		print_files(lst->next);
 		free(lst); //////////////
@@ -50,10 +50,34 @@ void	print_split(char **split)
 	i = 0;
 	while (split[i])
 	{
-		printf("%s\n", split[i]);
+		printf("\t%s\n", split[i]);
 		free(split[i]); /////////
 		i++;
 	}
+	free(split);
+}
+
+void	mish_print_processes(t_mish *mish)
+{
+	int			i;
+
+	i = 0;
+	while (i < mish->nb)
+	{
+		printf("-------------------- PROCESS %d\n", i);
+		printf("line = %s\n", mish->p[i].line);
+		printf("ac = %d\n", mish->p[i].ac);
+		printf("av =");
+		print_split(mish->p[i].av);
+		printf("---------- INFILES\n");
+		print_files(mish->p[i].infiles);
+		printf("---------- OUTFILES\n");
+		print_files(mish->p[i].outfiles);
+
+		free(mish->p[i].line);
+		i++;
+	}
+	free(mish->p);
 }
 
 int	main(int argc, char **argv)
@@ -85,16 +109,10 @@ int	main(int argc, char **argv)
 		mish.error = head;
 		if (mish_separate_processes(&mish))
 		{
-			print_process_lines(mish.p, mish.nb);
 			if (!mish_fill_processes(&mish)) ///////////
-			{
-				printf("----------INFILES\n");
-				print_files(mish.p->infiles);
-				printf("----------OUTFILES\n");
-				print_files(mish.p->outfiles);
-				printf("----------AV\n");
-				print_split(mish.p->av);
-			}
+				mish_print_processes(&mish);
+			//print_process_lines(mish.p, mish.nb);
+
 		}
 		t_error_lst_free(&mish.error);
 	}

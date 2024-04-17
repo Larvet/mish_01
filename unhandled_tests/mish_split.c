@@ -50,6 +50,7 @@ static char	*substr_dup(char *str, int start, int end)
 	return (tmp);
 }
 
+// gerer les quotes, caracteres speciaux entre quotes
 static char	*from_str_to_strs(char *str, int *i, char *sep)
 {
 	char	*dst;
@@ -72,7 +73,7 @@ static char	*from_str_to_strs(char *str, int *i, char *sep)
 	return (dst);
 }
 
-char	**mish_split(t_mish *mish, char *sep)
+char	**mish_split(t_process *mish, char *sep)
 {
 	char	**dst;
 	int		count;
