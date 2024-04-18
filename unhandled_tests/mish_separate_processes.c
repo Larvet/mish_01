@@ -44,10 +44,10 @@ void	mish_init_p_mish(t_mish *mish)
 
 int	mish_separate_processes(t_mish *mish)
 {
-	char	**processes;
+	char	**p_lines;
 	int		count;
 	
-	processes = NULL;
+	p_lines = NULL;
 	if (!mish_check_syntax_error(mish) && !mish_check_unhandled(mish)
 			&& !mish_check_open_quotes(mish))
 	{
@@ -55,13 +55,13 @@ int	mish_separate_processes(t_mish *mish)
 		mish->p = ft_calloc(count, sizeof(*(mish->p))); // malloc
 		if (mish->p)
 		{
-			processes = ft_split(mish->line, '|'); // malloc
-			if (processes)
+			p_lines = ft_split(mish->line, '|'); // malloc
+			if (p_lines)
 			{
 				mish->nb = count;
-				process_init_line(&mish->p, processes, count);
+				process_init_line(&mish->p, p_lines, count);
 				mish_init_p_mish(mish);
-				free(processes);
+				free(p_lines);
 			}
 		}
 		else

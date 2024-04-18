@@ -6,7 +6,7 @@
 /*   By: bchene <bchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:58:13 by bchene            #+#    #+#             */
-/*   Updated: 2024/04/17 18:37:33 by locharve         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:15:22 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,14 @@ int			ft_getnbsplit(char *s, char c);
 char		**ft_split(char const *src, char c);
 
 /* ft_strdup.c */
-// size_t	ft_strlen(const char *str);
-// char		*ft_strcpy(char *dst, const char *src);
+size_t		ft_strlen(const char *str);
+char		*ft_strcpy(char *dst, const char *src);
 char		*ft_strdup(const char *s);
-// char		*ft_strncpy(char *dst, const char *src, size_t n);
+char		*ft_strncpy(char *dst, const char *src, size_t n);
 char		*ft_strndup(const char *s, size_t n);
 
 /* mish_check_unhandled.c */
-// int		not_between_quotes(t_mish *mish, char *line, int i);
+int		not_between_quotes(t_mish *mish, char *line, int i);
 int			mish_check_unhandled(t_mish *mish);
 
 /* mish_check_syntax_error.c */
@@ -104,6 +104,18 @@ int			mish_check_open_quotes(t_mish *mish);
 int			char_count(char *str, char c);
 void		process_init_line(t_process **p, char **split, int count);
 int			mish_separate_processes(t_mish *mish);
+
+/* mish_clean_quotes.c */
+char		*substitute_hub(t_mish *mish, char *src, char *var);
+char		*clean_quotes(t_mish *mish, char *src, char q);
+void		mish_clean_all_quotes(t_mish *mish, char **p_lines);
+
+/* substitute_fonctions.c */
+char		*get_var_value(t_mish *mish, char *var);
+char		*dup_substituting(char *src, char *var, char *sub);
+char		*substitute_exit_status(t_mish *mish, char *src, char *var);
+char		*substitute_digits(t_mish *mish, char *src, char *var);
+char		*substitute_var(t_mish *mish, char *src, char *var);
 
 /* mish_fill_processes.c */				// trop de fonctions ; gerer les retours d'erreur
 void		file_add_back(t_file **lst, t_file *new);
@@ -120,5 +132,21 @@ void		ft_print_split(char **pathlist);
 void		ft_printf_strtab(char **str, int size, const char *sep);
 void		ft_bzero(void *s, size_t size);
 void		*ft_calloc(size_t nmemb, size_t size);
+
+/* mish_91_ft_01 */
+int			is_alphanum_underscore(char c);
+size_t		ft_strlen_while(char *str, int f(char));
+
+/* tmp -- libft */
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int			ft_isalpha(int c);
+int			ft_isdigit(int c);
+void		*ft_memmove(void *dest, const void *src, size_t n);
+char		*ft_itoa(int n);
+
+char		*ft_strchr(const char *s, int c);
+char		*ft_strswitnchr(char *s, char src, char dest);
+
+
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "mish.h"
 
-static int	not_between_quotes(t_mish *mish, char *line, int i)
+int	not_between_quotes(t_mish *mish, char *line, int i)
 {
 	int		j;
 	int		q;

@@ -70,11 +70,13 @@ int	mish_check_syntax_error(t_mish *mish)
 		{
 			i += tmp[0];
 			tmp[1] = is_special_token(mish->line, i);
-			if (tmp[1])
+			if (tmp[1] && not_between_quotes(mish, mish->line, i))
 				return (dup_err_str(mish, &mish->line[i],
 						tmp[1], err_token_unexpected));
 			else if (!next_char_addr(&mish->line[i]))
 				return (dup_err_str(mish, "newline", 7, err_token_unexpected));
+			else
+				i += tmp[1];
 			tmp[0] = 0;
 		}
 		else

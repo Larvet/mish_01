@@ -6,7 +6,7 @@
 /*   By: locharve <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:43:45 by locharve          #+#    #+#             */
-/*   Updated: 2024/04/17 18:42:03 by locharve         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:46:19 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,23 +105,26 @@ static int	process_fill(t_mish *mish, t_process *p)
 {
 	char	**split;
 	char	**io_files;
+	int		ret;
 
 	(void) mish;
+	ret = 0;
 	split = mish_split(p, WHITESPACES);
 	if (split)
 	{
+		mish_clean_all_quotes(mish, split); /////
 		io_files = strtab_get_io_files(split);
 		if (io_files)
 		{
 			process_fill_io_files(p, io_files);
 			free(io_files);
 			process_fill_av(p, split);
-			free(split);
 		}
 		else
-			return (-1);
+			ret = -1;
+		free(split);
 	}
-	return (0);
+	return (ret);
 }
 
 int	mish_fill_processes(t_mish *mish)
