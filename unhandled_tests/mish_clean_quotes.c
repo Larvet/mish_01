@@ -38,8 +38,11 @@ char	*clean_quotes(t_mish *mish, char *src, char q)
 		var = ft_strchr(src, '$');
 		if (var) // while ?
 		{
-			var = ft_strndup(&var[1],
-					ft_strlen_while(&var[1], is_alphanum_underscore));
+			if (ft_isdigit(var[1]))
+				var = ft_strndup(&var[1], 1);
+			else
+				var = ft_strndup(&var[1],
+						ft_strlen_while(&var[1], is_alphanum_underscore));
 			if (var)
 			{
 				dst = substitute_hub(mish, src, var);
