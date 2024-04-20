@@ -6,7 +6,7 @@
 /*   By: bchene <bchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:58:13 by bchene            #+#    #+#             */
-/*   Updated: 2024/04/18 17:15:22 by locharve         ###   ########.fr       */
+/*   Updated: 2024/04/20 14:47:35 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char		*ft_strncpy(char *dst, const char *src, size_t n);
 char		*ft_strndup(const char *s, size_t n);
 
 /* mish_check_unhandled.c */
-int		not_between_quotes(t_mish *mish, char *line, int i);
+int			is_between_quotes(t_mish *mish, char *line, int i);
 int			mish_check_unhandled(t_mish *mish);
 
 /* mish_check_syntax_error.c */
@@ -105,16 +105,31 @@ int			char_count(char *str, char c);
 void		process_init_line(t_process **p, char **split, int count);
 int			mish_separate_processes(t_mish *mish);
 
-/* mish_clean_quotes.c */
+/* mish_clean_quotes.c
 char		*substitute_hub(t_mish *mish, char *src, char *var);
 char		*clean_quotes(t_mish *mish, char *src, char q);
 void		mish_clean_all_quotes(t_mish *mish, char **p_lines);
+*/
 
-/* substitute_fonctions.c */
+/* mish_substitute_vars.c */
+int			is_there_a_var(char *str);
+char		*get_var_value(t_mish *mish, char *var);
+char		*substitute_hub(t_mish *mish, char *src, char *var);
+void		mish_substitute_vars(t_mish *mish, char **p_lines);
+void		mish_remove_quotes(t_mish *mish, char **p_lines);
+
+/* substitute_fonctions.c
 char		*get_var_value(t_mish *mish, char *var);
 char		*dup_substituting(char *src, char *var, char *sub);
 char		*substitute_exit_status(t_mish *mish, char *src, char *var);
 char		*substitute_digits(t_mish *mish, char *src, char *var);
+char		*substitute_var(t_mish *mish, char *src, char *var);
+*/
+
+/* substitute.c */
+char		*dup_substituting(char *src, char *var, char *sub);
+char		*substitute_0(t_mish *mish, char *src, char *var);
+char		*substitute_exit_status(t_mish *mish, char *src, char *var);
 char		*substitute_var(t_mish *mish, char *src, char *var);
 
 /* mish_fill_processes.c */				// trop de fonctions ; gerer les retours d'erreur

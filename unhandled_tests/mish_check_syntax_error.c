@@ -6,7 +6,7 @@
 /*   By: locharve <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:39:36 by locharve          #+#    #+#             */
-/*   Updated: 2024/04/17 17:06:38 by locharve         ###   ########.fr       */
+/*   Updated: 2024/04/20 14:57:41 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	mish_check_syntax_error(t_mish *mish)
 		{
 			i += tmp[0];
 			tmp[1] = is_special_token(mish->line, i);
-			if (tmp[1] && not_between_quotes(mish, mish->line, i))
+			if (tmp[1] && !is_between_quotes(mish, mish->line, i)) /////
 				return (dup_err_str(mish, &mish->line[i],
 						tmp[1], err_token_unexpected));
 			else if (!next_char_addr(&mish->line[i]))

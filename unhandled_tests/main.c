@@ -6,7 +6,7 @@
 /*   By: locharve <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:12:47 by locharve          #+#    #+#             */
-/*   Updated: 2024/04/17 18:34:54 by locharve         ###   ########.fr       */
+/*   Updated: 2024/04/20 16:10:15 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,7 @@ int	main(int argc, char **argv)
 			printf("error : %d\n", mish.error->type);
 			if (mish.error->data)
 				printf("\tdata : %s\n", mish.error->data);
-/*			tmp = mish.error;
 			mish.error = mish.error->next;
-			if (tmp->data)
-				free(tmp->data);
-			free(tmp);
-*/			mish.error = mish.error->next;
 		}
 		mish.error = head;
 		if (mish_separate_processes(&mish))
