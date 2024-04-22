@@ -80,6 +80,19 @@ void	mish_print_processes(t_mish *mish)
 	free(mish->p);
 }
 
+void	first_substitution(t_mish *mish, char *line, char *var)
+{
+	if (var[1] == '0' || var[1] == '?')
+		var = ft_strndup(var, 2);
+	else
+		var = ft_strndup(var,vft_strlen_while(var[1],
+				is_alphanum_underscore) + 1);
+	if (!var)
+		return ;
+	line = substitute_hub(mish, line, var);
+	free(var);
+}
+
 int	main(int argc, char **argv)
 {
 	t_mish	mish;
@@ -89,6 +102,9 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		mish.line = argv[1];
+		i = is_there_a_var(mish.line);
+		if (i)
+			//
 		printf("check_unhandled : %d\nsyntax_error : %d\nopen_quotes : %d\n\n",
 				mish_check_unhandled(&mish),
 				mish_check_syntax_error(&mish),

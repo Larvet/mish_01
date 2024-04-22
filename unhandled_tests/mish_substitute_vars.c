@@ -68,8 +68,12 @@ void	mish_substitute_vars(t_mish *mish, char **p_lines)
 	while (p_lines && p_lines[++i])
 	{
 		v = is_there_a_var(p_lines[i]);
+		printf("between_quotes\t|%s|\t%d\n", &p_lines[i][v],
+				is_between_quotes(mish, p_lines[i], v));
 		while (v && is_between_quotes(mish, p_lines[i], v) != 1)
 		{
+			//printf("between_quotes = %d\n",
+			//		is_between_quotes(mish, p_lines[i], v));
 			if (p_lines[i][v + 1] == '0' || p_lines[i][v + 1] == '?')
 				var = ft_strndup(&p_lines[i][v], 2);
 			else
