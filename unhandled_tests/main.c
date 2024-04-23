@@ -6,13 +6,13 @@
 /*   By: locharve <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:12:47 by locharve          #+#    #+#             */
-/*   Updated: 2024/04/20 16:10:15 by locharve         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:24:11 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mish.h"
 
-void	print_process_lines(t_process *p, int count)
+void	print_process_lines_free(t_process *p, int count)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ void	print_process_lines(t_process *p, int count)
 	return ;
 }
 
-void	print_files(t_file *lst)
+void	print_files_free(t_file *lst)
 {
 	if (lst)
 	{
@@ -43,7 +43,7 @@ void	print_files(t_file *lst)
 	}
 }
 
-void	print_split(char **split)
+void	print_split_free(char **split)
 {
 	int	i;
 
@@ -57,7 +57,7 @@ void	print_split(char **split)
 	free(split);
 }
 
-void	mish_print_processes(t_mish *mish)
+void	mish_print_processes_free(t_mish *mish)
 {
 	int			i;
 
@@ -79,32 +79,38 @@ void	mish_print_processes(t_mish *mish)
 	}
 	free(mish->p);
 }
-
-void	first_substitution(t_mish *mish, char *line, char *var)
+/*
+void	first_substitution(t_mish *mish, char **line, char *var)
 {
 	if (var[1] == '0' || var[1] == '?')
 		var = ft_strndup(var, 2);
 	else
-		var = ft_strndup(var,vft_strlen_while(var[1],
+		var = ft_strndup(var, ft_strlen_while(&var[1],
 				is_alphanum_underscore) + 1);
 	if (!var)
-		return ;
-	line = substitute_hub(mish, line, var);
+	{
+		mish_t_error_add(mish, err_malloc, errno, "first_substitution");
+		return; //(NULL);
+	}
+	*line = substitute_hub(mish, *line, var);
 	free(var);
+	//return (line);
 }
-
+*/
+/*
 int	main(int argc, char **argv)
 {
 	t_mish	mish;
 	t_error	*head;
+	int		i;
 
 	ft_bzero(&mish, sizeof(mish));
 	if (argc == 2)
 	{
-		mish.line = argv[1];
+		mish.line = ft_strdup(argv[1]);
 		i = is_there_a_var(mish.line);
 		if (i)
-			//
+			mish_var_dup(&mish, &mish.line, &mish.line[i]);
 		printf("check_unhandled : %d\nsyntax_error : %d\nopen_quotes : %d\n\n",
 				mish_check_unhandled(&mish),
 				mish_check_syntax_error(&mish),
@@ -126,6 +132,8 @@ int	main(int argc, char **argv)
 
 		}
 		t_error_lst_free(&mish.error);
+		free(mish.line);
 	}
 	return (0);
 }
+*/

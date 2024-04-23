@@ -48,9 +48,9 @@ int	mish_separate_processes(t_mish *mish)
 	int		count;
 	
 	p_lines = NULL;
-	if (!mish_check_syntax_error(mish) && !mish_check_unhandled(mish)
-			&& !mish_check_open_quotes(mish))
-	{
+//	if (!mish_check_syntax_error(mish) && !mish_check_unhandled(mish)
+//			&& !mish_check_open_quotes(mish))
+//	{
 		count = char_count(mish->line, '|') + 1;
 		mish->p = ft_calloc(count, sizeof(*(mish->p))); // malloc
 		if (mish->p)
@@ -66,6 +66,6 @@ int	mish_separate_processes(t_mish *mish)
 		}
 		else
 			return (0);
-	}
+//	}
 	return (1);
 }

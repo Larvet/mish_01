@@ -6,7 +6,7 @@
 /*   By: bchene <bchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:58:13 by bchene            #+#    #+#             */
-/*   Updated: 2024/04/20 14:47:35 by locharve         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:58:37 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,11 @@ char		*clean_quotes(t_mish *mish, char *src, char q);
 void		mish_clean_all_quotes(t_mish *mish, char **p_lines);
 */
 
-/* mish_substitute_vars.c */
+/* mish_substitute_vars.c */	// trop de fonctions
 int			is_there_a_var(char *str);
 char		*get_var_value(t_mish *mish, char *var);
 char		*substitute_hub(t_mish *mish, char *src, char *var);
+void		mish_var_dup(t_mish *mish, char **line, char *var);
 void		mish_substitute_vars(t_mish *mish, char **p_lines);
 void		mish_remove_quotes(t_mish *mish, char **p_lines);
 

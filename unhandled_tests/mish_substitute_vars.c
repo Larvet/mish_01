@@ -6,7 +6,7 @@
 /*   By: locharve <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:51:15 by locharve          #+#    #+#             */
-/*   Updated: 2024/04/20 16:07:05 by locharve         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:02:45 by locharve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ int	is_there_a_var(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i] != '$')
+	while (str && str[i] && str[i] != '$')
 		i++;
-	if (str[i] && (ft_isalpha(str[i + 1]) || str[i + 1] == '_'
-			|| str[i + 1] == '0' || str[i + 1] == '?'))
+	if (str && str[i] && (ft_isalpha(str[i + 1])
+			|| str[i + 1] == '_'
+			|| str[i + 1] == '0'
+			|| str[i + 1] == '?'))
 		return (i);
 	else
 		return (0);
@@ -58,9 +60,25 @@ char	*substitute_hub(t_mish *mish, char *src, char *var)
 	return (dst);
 }
 
+void	mish_var_dup(t_mish *mish, char **line, char *var)
+{
+	if (var[1] == '0' || var[1] == '?')
+		var = ft_strndup(var, 2);
+	else
+		var = ft_strndup(var, ft_strlen_while(&var[1],
+				is_alphanum_underscore) + 1);
+	if (!var)
+	{
+		mish_t_error_add(mish, err_malloc, errno, "var_dup");
+		return ;
+	}
+	*line = substitute_hub(mish, *line, var);
+	free(var);
+	return ;
+}
+
 void	mish_substitute_vars(t_mish *mish, char **p_lines)
 {
-	char	*var;
 	int		i;
 	int		v;
 
@@ -68,13 +86,9 @@ void	mish_substitute_vars(t_mish *mish, char **p_lines)
 	while (p_lines && p_lines[++i])
 	{
 		v = is_there_a_var(p_lines[i]);
-		printf("between_quotes\t|%s|\t%d\n", &p_lines[i][v],
-				is_between_quotes(mish, p_lines[i], v));
 		while (v && is_between_quotes(mish, p_lines[i], v) != 1)
 		{
-			//printf("between_quotes = %d\n",
-			//		is_between_quotes(mish, p_lines[i], v));
-			if (p_lines[i][v + 1] == '0' || p_lines[i][v + 1] == '?')
+/*			if (p_lines[i][v + 1] == '0' || p_lines[i][v + 1] == '?')
 				var = ft_strndup(&p_lines[i][v], 2);
 			else
 				var = ft_strndup(&p_lines[i][v],
@@ -84,6 +98,7 @@ void	mish_substitute_vars(t_mish *mish, char **p_lines)
 				return ;
 			p_lines[i] = substitute_hub(mish, p_lines[i], var);
 			free(var);
+*/			mish_var_dup(mish, &p_lines[i], &p_lines[i][v]);
 			v = is_there_a_var(p_lines[i]);
 		}
 	}

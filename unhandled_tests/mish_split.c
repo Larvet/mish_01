@@ -73,16 +73,16 @@ static char	*from_str_to_strs(char *str, int *i, char *sep)
 	return (dst);
 }
 
-char	**mish_split(t_process *mish, char *sep)
+char	**mish_split(t_process *p, char *sep)
 {
 	char	**dst;
 	int		count;
 	int		i;
 	int		index;
 
-	if (!mish->line)
+	if (!p->line)
 		return (NULL);
-	count = count_words(mish->line, sep);
+	count = count_words(p->line, sep);
 	dst = ft_calloc(count + 1, sizeof(char *));
 	if (dst)
 	{
@@ -90,7 +90,7 @@ char	**mish_split(t_process *mish, char *sep)
 		index = 0;
 		while (i < count)
 		{
-			dst[i] = from_str_to_strs(mish->line, &index, sep);
+			dst[i] = from_str_to_strs(p->line, &index, sep);
 			if (!dst[i])
 			{
 				strtab_free(dst);
